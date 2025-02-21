@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import Prism from 'prismjs'
 import Editor from 'react-simple-code-editor';
 import axios from 'axios'
+import markdown from 'react-markdown'
 
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism-tomorrow.css'
 import './App.css'
+import Markdown from 'react-markdown';
 
 
 
@@ -14,6 +16,7 @@ function App() {
     return 1+1
   }
   `)
+  const [review, setReview] = useState(``)
 
   useEffect(()=>{
     Prism.highlightAll()
@@ -21,7 +24,7 @@ function App() {
 
   async function reviewCode(){
     const response = axios.post('http://localhost:3001/ai/get-review', {code})
-    console.log((await response).data)
+    setReview(response.data)
   }
 
   return (
@@ -47,7 +50,14 @@ function App() {
           </div>
           <button onClick={reviewCode} className="review">Review</button>
         </div>
-        <div className="right"></div>
+        <div className="right">
+          <Markdown style={{
+                fontFamily: '"Fira code", "Fira Mono", monospace',
+                fontSize: 16,
+                borderRadius: '3.125rem',
+                outline: 'none',
+              }}>{review}</Markdown>
+        </div>
       </main>
     </>
   )
