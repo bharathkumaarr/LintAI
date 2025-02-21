@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
 import Prism from 'prismjs'
 import Editor from 'react-simple-code-editor';
+
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github-dark.css";
+
+
 import axios from 'axios'
 import markdown from 'react-markdown'
 
@@ -23,7 +28,7 @@ function App() {
   })
 
   async function reviewCode(){
-    const response = axios.post('http://localhost:3001/ai/get-review', {code})
+    const response = await axios.post('http://localhost:3001/ai/get-review', {code})
     setReview(response.data)
   }
 
@@ -42,6 +47,8 @@ function App() {
                 fontSize: 16,
                 borderRadius: '3.125rem',
                 outline: 'none',
+                height: "100%",
+                width: "100%",
               }}
               textareaClassName="editor-textarea"
                 />
@@ -51,12 +58,9 @@ function App() {
           <button onClick={reviewCode} className="review">Review</button>
         </div>
         <div className="right">
-          <Markdown style={{
-                fontFamily: '"Fira code", "Fira Mono", monospace',
-                fontSize: 16,
-                borderRadius: '3.125rem',
-                outline: 'none',
-              }}>{review}</Markdown>
+          <Markdown 
+            rehypePlugins={[ rehypeHighlight ]}
+          >{review}</Markdown>
         </div>
       </main>
     </>

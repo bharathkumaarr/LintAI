@@ -46,6 +46,7 @@ main .right {
   border-color: black;
 
   padding: 2rem;
+  overflow: auto;
 }
 
 main .left .review {
