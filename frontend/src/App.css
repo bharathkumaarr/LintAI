@@ -17,9 +17,12 @@ main {
 }
 main .left, 
 main .right {
-  height: 100%;
   flex-basis: 50%;
+  transition: 0.5s;
 
+}
+main .left:hover, main .right:hover {
+  box-shadow: -2px 2px 5px 2px rgb(64, 64, 64);
 }
 
 main .left {
@@ -29,10 +32,18 @@ main .left {
   border-color: black;
   position: relative;
 
+  overflow-x: auto;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+}
+main .left::-webkit-scrollbar:vertical {
+  display: none;
 }
 main .left .code, .code pre, .code pre code {
-  height: 100%;
-  width: 100%;
+  /* height: 100%;
+  width: 100%; */
   margin: 0;
   border-radius: 3.125rem;
   background-color: #111;
@@ -46,7 +57,11 @@ main .right {
   border-color: black;
 
   padding: 2rem;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
 }
 
 main .left .review {
@@ -74,6 +89,14 @@ main .left .review {
 /* Style the container for consistency */
 .code {
   border-radius: 3.125rem;
-  overflow: hidden; 
+  /* overflow: hidden;  */
   font-size: 1.5rem;
+}
+
+main .right::-webkit-scrollbar:vertical {
+  display: none;
+}
+
+main .left .review {
+  z-index: 10; /* Optional: Ensure it floats above content */
 }
