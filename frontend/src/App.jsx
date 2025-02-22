@@ -28,7 +28,7 @@ function App() {
   })
 
   async function reviewCode(){
-    const response = await axios.post('http://localhost:3001/ai/get-review', {code})
+    const response = await axios.post('/api/ai/get-review', {code})
     setReview(response.data)
   }
 
